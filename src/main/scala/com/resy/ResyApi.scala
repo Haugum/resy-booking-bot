@@ -88,7 +88,14 @@ object ResyApi extends Logging {
     logger.debug(s"URL Request: $url")
 
     ws.url(url)
-      .withHttpHeaders(createHeaders(resyKeys): _*)
+      .withHttpHeaders(
+        createHeaders(resyKeys) ++ Seq(
+          "Content-Type" -> "application/x-www-form-urlencoded",
+          "Origin"       -> "https://resy.com",
+          "Referer"      -> "https://resy.com",
+          "User-Agent"   -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
+        ): _*
+      )
       .get
       .map(_.body)(system.dispatcher)
   }
@@ -108,8 +115,9 @@ object ResyApi extends Logging {
       .withHttpHeaders(
         createHeaders(resyKeys) ++ Seq(
           "Content-Type" -> "application/x-www-form-urlencoded",
-          "Origin"       -> "https://widgets.resy.com",
-          "Referer"      -> "https://widgets.resy.com/"
+          "Origin"       -> "https://resy.com",
+          "Referer"      -> "https://resy.com",
+          "User-Agent"   -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
         ): _*
       )
       .post(post)

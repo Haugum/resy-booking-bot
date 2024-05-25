@@ -12,6 +12,8 @@ import scala.util.{Failure, Success, Try}
 
 class ResyClient(resyApi: ResyApi) extends Logging {
 
+  final val snipedIt: String = "Sniped res!!!!!!"
+
   private type ReservationMap = Map[String, TableTypeMap]
   private type TableTypeMap   = Map[String, String]
 
@@ -127,10 +129,7 @@ class ResyClient(resyApi: ResyApi) extends Logging {
 
     resyTokenResp match {
       case Success(resyToken) =>
-        logger.info("Headshot!")
-        logger.info("(҂‾ ▵‾)︻デ═一 (× _ ×#")
-        logger.info("Successfully sniped reservation")
-        logger.info(s"Resy token is $resyToken")
+        logger.info(snipedIt)
         Success(resyToken)
       case _ =>
         logger.info("Missed the shot!")

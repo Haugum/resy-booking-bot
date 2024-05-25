@@ -10,14 +10,14 @@ import scala.util.{Failure, Success, Try}
 
 class ResyBookingWorkflow(resyClient: ResyClient, resDetails: ReservationDetails) extends Logging {
 
+  final val MyConstant: String = "Attempting to make res..."
+
   def run(millisToRetry: Long = (10 seconds).toMillis): Try[String] =
     runnable(millisToRetry, DateTime.now.getMillis)
 
   @tailrec
   private[this] def runnable(millisToRetry: Long, dateTimeStart: Long): Try[String] = {
-    logger.info("Taking the shot...")
-    logger.info("(҂‾ ▵‾)︻デ═一 (˚▽˚’!)/")
-    logger.info(s"Attempting to snipe reservation")
+    logger.info(MyConstant)
 
     val maybeConfigId = resyClient.findReservations(
       date         = resDetails.date,

@@ -12,6 +12,8 @@ import scala.language.postfixOps
 
 object ResyBookingBot extends Logging {
 
+  final val snipedIt: String = "Sniped res!!!!!!"
+
   def main(args: Array[String]): Unit = {
     logger.info("Starting Resy Booking Bot")
 
@@ -19,6 +21,9 @@ object ResyBookingBot extends Logging {
     val resyKeys   = resyConfig.at("resyKeys").loadOrThrow[ResyKeys]
     val resDetails = resyConfig.at("resDetails").loadOrThrow[ReservationDetails]
     val snipeTime  = resyConfig.at("snipeTime").loadOrThrow[SnipeTime]
+
+    val resId = resDetails.venueId
+    logger.info(String.format("%s %d", "Using Resy ID: ", resId))
 
     val resyApi             = new ResyApi(resyKeys)
     val resyClient          = new ResyClient(resyApi)
